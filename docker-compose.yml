@@ -1,0 +1,28 @@
+version: '3'
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_USER: user
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: linedb2
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    volumes:
+       - ./mysql:/var/lib/mysql
+    ports:
+      - 3306:3306
+  web:
+    build: .
+    command: python3 manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment: 
+      - PMA_ARBITRARY=1
+    ports:
+      - 8082:80

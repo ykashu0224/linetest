@@ -1,0 +1,4 @@
+Django == 2.1
+mysqlclient==1.4.6
+psycopg2
+django-bootstrap4
